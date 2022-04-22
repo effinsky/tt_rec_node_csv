@@ -1,15 +1,18 @@
-import { resourceUsage } from "process"
-import { CandidateItem, CandidatesEndpointResponse } from "../../types"
+import {
+    CandidateItem,
+    CandidatesEndpointResponse,
+    JobApplicationsEndpointResponse,
+} from "../../types"
 import { get_tt_data } from "../tt_api"
+
+import urls from "../../config/urls.json"
 
 export const get_candidate_data = async (): Promise<
     CandidateItem[] | undefined
 > => {
     try {
         const candidates_call_result =
-            await get_tt_data<CandidatesEndpointResponse>(
-                "https://api.teamtailor.com/v1/candidates"
-            )
+            await get_tt_data<CandidatesEndpointResponse>(urls.candidates_url)
 
         if (candidates_call_result.type !== "success") {
             return undefined
@@ -28,8 +31,10 @@ export const get_candidate_data = async (): Promise<
                         ]
 
                     const job_applications_call_result =
-                        // add expected response type
-                        await get_tt_data(job_application_url)
+                        // specify in types
+                        await get_tt_data<JobApplicationsEndpointResponse>(
+                            job_application_url
+                        )
 
                     if (job_applications_call_result.type !== "success") {
                         return undefined

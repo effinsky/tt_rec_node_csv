@@ -4,6 +4,7 @@ import { get_candidate_data } from "../services/candidate_service"
 import path from "path"
 
 export const router = Router()
+
 router.get("/", (_: Request, res: Response): void => {
     res.render("index", {
         title: "Get yo candidate csv",
@@ -24,6 +25,7 @@ router.get(
                 res.status(404).send({
                     msg: "the requested resource was not found",
                 })
+
                 return
             }
 
@@ -34,6 +36,7 @@ router.get(
                 res.status(500).send({
                     msg: "could not generate the requested file",
                 })
+
                 return
             }
 
