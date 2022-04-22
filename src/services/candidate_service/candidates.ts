@@ -1,22 +1,44 @@
-import { CandidateItem } from "../../types"
+import { resourceUsage } from "process"
+import { CandidateItem, CandidatesEndpointResponse } from "../../types"
 import { get_tt_data } from "../tt_api"
 
-export const get_candidate_data = async (): Promise<object[] | undefined> => {
+export const get_candidate_data = async (): Promise<
+    CandidateItem[] | undefined
+> => {
     try {
-        const data = await get_tt_data(
-            "https://api.teamtailor.com/v1/candidates"
-        )
-        const unsettled_cand_promises: Promise<CandidateItem>[] = data.map(
-            async (cand: any): Promise<CandidateItem | undefined> => {
-                const job_application_url =
-                    cand["relationships"]["job-applications"]["links"][
-                        "related"
-                    ]
+        const candidates_call_result =
+            await get_tt_data<CandidatesEndpointResponse>(
+                "https://api.teamtailor.com/v1/candidates"
+            )
 
-                try {
-                    const job_application_data = await get_tt_data(
-                        job_application_url
-                    )
+        if (candidates_call_result.type !== "success") {
+            return undefined
+        }
+
+        const {
+            payload: { data: candidate_data },
+        } = candidates_call_result
+
+        const unsettled_cand_promises: Promise<CandidateItem | undefined>[] =
+            candidate_data.map(
+                async (cand): Promise<CandidateItem | undefined> => {
+                    const job_application_url =
+                        cand["relationships"]["job-applications"]["links"][
+                            "related"
+                        ]
+
+                    const job_applications_call_result =
+                        // add expected response type
+                        await get_tt_data(job_application_url)
+
+                    if (job_applications_call_result.type !== "success") {
+                        return undefined
+                    }
+
+                    const {
+                        // @ts-ignore
+                        payload: { data: job_application_data },
+                    } = job_applications_call_result
 
                     const job_applications = job_application_data.map(
                         (job_app: any) => ({
@@ -36,13 +58,8 @@ export const get_candidate_data = async (): Promise<object[] | undefined> => {
                     }
 
                     return single_cand_processed
-                } catch (err) {
-                    console.error(err)
-
-                    return undefined
                 }
-            }
-        )
+            )
 
         const candidate_info = await Promise.allSettled(
             unsettled_cand_promises
