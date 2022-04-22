@@ -1,1 +1,1 @@
-export { http_service } from "./http"
+export { http_service } from "./http_service"
