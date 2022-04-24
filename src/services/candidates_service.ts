@@ -62,17 +62,14 @@ export const get_candidate_data = async (): Promise<MaybeCandidateItems> => {
 				return single_cand_processed
 			})
 
-		const candidate_info = await Promise.allSettled(
-			unsettled_cand_promises
-		).then((v) =>
-			v.map((cand_item) =>
-				cand_item.status === "fulfilled"
-					? cand_item.value
-					: cand_item.reason
-			)
+		const candidate_info = await Promise.allSettled(unsettled_cand_promises)
+
+		return candidate_info.map((cand_item) =>
+			cand_item.status === "fulfilled"
+				? cand_item.value
+				: cand_item.reason
 		)
 
-		return candidate_info
 	} catch (err) {
 		console.error(err)
 
