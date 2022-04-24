@@ -31,7 +31,6 @@ export const get_candidate_data = async (): Promise<
 						]
 
 					const job_applications_call_result =
-						// specify in types
 						await get_tt_data<JobApplicationsEndpointResponse>(
 							job_application_url
 						)
@@ -41,7 +40,6 @@ export const get_candidate_data = async (): Promise<
 					}
 
 					const {
-						// @ts-ignore
 						payload: { data: job_application_data },
 					} = job_applications_call_result
 
