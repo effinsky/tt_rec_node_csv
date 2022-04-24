@@ -1,5 +1,5 @@
 import axios from "axios"
-import { api_key } from "../../app"
+import { api_key } from "../app"
 
 export const http_service = axios.create()
 
