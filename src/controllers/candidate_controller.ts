@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express"
 import { create_csv_file, FileCreationResult } from "../utils/file_ops"
-import { get_candidate_data } from "../services/candidates_service"
+import { get_candidates_data } from "../services/candidates_service"
 import path from "path"
 
 export const router = Router()
@@ -20,9 +20,9 @@ export const candidates_csv_handler = async (
 	const filepath = "src/assets/files/candidates.csv"
 
 	try {
-		const candidate_data = await get_candidate_data()
+		const candidates_data = await get_candidates_data()
 
-		if (!candidate_data) {
+		if (!candidates_data) {
 			res.status(404).send({
 				msg: "the requested resource was not found",
 			})
@@ -31,7 +31,7 @@ export const candidates_csv_handler = async (
 		}
 
 		const file_creation_result: FileCreationResult = await create_csv_file(
-			candidate_data,
+			candidates_data,
 			filepath
 		)
 
