@@ -7,7 +7,7 @@
 	"license": "MIT",
 	"private": false,
 	"scripts": {
-		"dev": "nodemon --config nodemon.json testie.ts",
+		"dev": "nodemon --config nodemon.json src/app.ts",
 		"dev:debug": "nodemon --config nodemon.json --inspect-brk src/app.ts",
 		"test": "jest"
 	},
