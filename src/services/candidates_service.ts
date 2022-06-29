@@ -1,4 +1,4 @@
-import { CandItem, CandEndpResp,  JobAppsEndpRespSimplified } from "../types"
+import { CandItem, CandEndpResp, JobAppsEndpRespSimplified } from "../types"
 import { get_tt_data } from "../utils/tt_api"
 
 import urls from "../external_config/urls.json"
@@ -18,6 +18,7 @@ export const get_cands_data = async (): Promise<MaybeCandItems> => {
 			payload: { data: candidates_data },
 		} = cands_call_result
 
+		// move the below to a helper func
 		const unsettled_cand_promises: Promise<MaybeCandItem>[] = candidates_data.map(
 			async (cand): Promise<MaybeCandItem> => {
 				const job_app_url =
@@ -52,8 +53,7 @@ export const get_cands_data = async (): Promise<MaybeCandItems> => {
 
 const get_job_apps_for_cand = async (url: string) => {
 	try {
-		const job_apps_call_result =
-			await get_tt_data<JobAppsEndpRespSimplified>(url)
+		const job_apps_call_result = await get_tt_data<JobAppsEndpRespSimplified>(url)
 
 		if (job_apps_call_result.type !== "success") {
 			return undefined

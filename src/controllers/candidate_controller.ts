@@ -1,5 +1,8 @@
 import { Request, Response, Router } from "express"
-import { create_csv_file, FileCreationResult as FileCreationRes } from "../utils/file_ops"
+import {
+	create_csv_file,
+	FileCreationResult as FileCreationRes,
+} from "../utils/file_ops"
 import { get_cands_data } from "../services/candidates_service"
 import path from "path"
 
@@ -13,10 +16,7 @@ export const root_handler = (_: Request, res: Response): void => {
 	})
 }
 
-export const cands_csv_handler = async (
-	_: Request,
-	res: Response
-): Promise<void> => {
+export const cands_csv_handler = async (_: Request, res: Response): Promise<void> => {
 	const filepath = "src/assets/files/candidates.csv"
 
 	try {

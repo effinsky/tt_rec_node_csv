@@ -3,7 +3,7 @@ import Express from "express"
 import { candidate_controller } from "./controllers"
 
 if (process.env.NODE_ENV !== "production") {
-    config()
+	config()
 }
 export const api_key = process.env.SUPER_SECRET_KEY
 
