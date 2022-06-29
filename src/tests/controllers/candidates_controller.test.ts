@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import {
-	candidates_csv_handler,
+	cands_csv_handler,
 	root_handler,
 } from "../../controllers/candidate_controller"
 import { create_csv_file } from "../../utils/file_ops"
@@ -17,7 +17,7 @@ describe("candidates controller", () => {
 
 	describe("candidates csv handler", () => {
 		test("should initiate file creation", () => {
-			candidates_csv_handler({} as Request, {} as Response)
+			cands_csv_handler({} as Request, {} as Response)
 
 			expect(create_csv_file).toHaveBeenCalled()
 		})

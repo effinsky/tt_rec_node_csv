@@ -1,4 +1,4 @@
-export type JobAppsEndpointRespSimplified = {
+export type JobAppsEndpRespSimplified = {
 	data: [
 		{
 			id: string

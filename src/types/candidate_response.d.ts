@@ -1,12 +1,12 @@
-export interface CandidatesEndpointResponse {
-    data: CandidateData[]
+export interface CandEndpResp {
+    data: CandData[]
 }
 
-interface CandidateData {
+interface CandData {
     id: string
     type: string
     links: Links
-    attributes: Attributes
+    attrs: Attrs
     relationships: Relationships
 }
 
@@ -33,7 +33,7 @@ interface Links2 {
     related: string
 }
 
-interface Attributes {
+interface Attrs {
     connected: boolean
     "created-at": string
     email: string

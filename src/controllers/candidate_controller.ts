@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express"
-import { create_csv_file, FileCreationResult } from "../utils/file_ops"
-import { get_candidates_data } from "../services/candidates_service"
+import { create_csv_file, FileCreationResult as FileCreationRes } from "../utils/file_ops"
+import { get_cands_data } from "../services/candidates_service"
 import path from "path"
 
 export const router = Router()
@@ -13,16 +13,16 @@ export const root_handler = (_: Request, res: Response): void => {
 	})
 }
 
-export const candidates_csv_handler = async (
+export const cands_csv_handler = async (
 	_: Request,
 	res: Response
 ): Promise<void> => {
 	const filepath = "src/assets/files/candidates.csv"
 
 	try {
-		const candidates_data = await get_candidates_data()
+		const cands_data = await get_cands_data()
 
-		if (!candidates_data) {
+		if (!cands_data) {
 			res.status(404).send({
 				msg: "the requested resource was not found",
 			})
@@ -30,12 +30,12 @@ export const candidates_csv_handler = async (
 			return
 		}
 
-		const file_creation_result: FileCreationResult = await create_csv_file(
-			candidates_data,
+		const file_creation_res: FileCreationRes = await create_csv_file(
+			cands_data,
 			filepath
 		)
 
-		if (file_creation_result.type !== "success") {
+		if (file_creation_res.type !== "success") {
 			res.status(500).send({
 				msg: "could not generate the requested file",
 			})
@@ -53,4 +53,4 @@ export const candidates_csv_handler = async (
 }
 
 router.get("/", root_handler)
-router.get("/candidates_csv", candidates_csv_handler)
+router.get("/candidates_csv", cands_csv_handler)
