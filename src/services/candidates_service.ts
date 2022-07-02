@@ -26,7 +26,6 @@ export const get_cands_data = async (): Promise<MaybeCandItems> => {
 		return handle_cand_promises(unsettled_cand_promises)
 	} catch (err) {
 		console.error(err)
-
 		return undefined
 	}
 }
@@ -52,7 +51,6 @@ const process_cands_data = (
 			job_app_id: job_apps[0]?.id,
 			job_app_created_at: job_apps[0]?.created_at,
 		}
-
 		return single_cand_processed
 	})
 }
@@ -78,7 +76,6 @@ const get_job_apps_for_cand = async (url: string) => {
 		return job_applications
 	} catch (err) {
 		console.error(err)
-
 		return undefined
 	}
 }
