@@ -22,7 +22,6 @@ export const get_cands_data = async (): Promise<MaybeCandItems> => {
 		} = cands_call_result
 
 		const unsettled_cand_promises = process_cands_data(candidates_data)
-
 		return handle_cand_promises(unsettled_cand_promises)
 	} catch (err) {
 		console.error(err)
