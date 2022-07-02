@@ -16,7 +16,10 @@ export const root_handler = (_: Request, res: Response): void => {
 	})
 }
 
-export const cands_csv_handler = async (_: Request, res: Response): Promise<void> => {
+export const cands_csv_handler = async (
+	_: Request,
+	res: Response
+): Promise<void> => {
 	const filepath = "src/assets/files/candidates.csv"
 
 	try {

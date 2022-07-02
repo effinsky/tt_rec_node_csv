@@ -1,5 +1,8 @@
 import { Request, Response } from "express"
-import { cands_csv_handler, root_handler } from "../../controllers/candidate_controller"
+import {
+	cands_csv_handler,
+	root_handler,
+} from "../../controllers/candidate_controller"
 import { create_csv_file } from "../../utils/file_ops"
 
 describe("candidates controller", () => {
